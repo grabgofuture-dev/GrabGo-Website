@@ -1,0 +1,295 @@
+.franchise-section {
+  background-image: url('/section_bg.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.schemes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.scheme-card {
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  z-index: 1;
+}
+
+.scheme-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.scheme-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+
+.scheme-card:hover::before {
+  transform: scale(1.05);
+}
+
+.scheme-colleges::before {
+  background-image: url('/images/scheme_colleges.png');
+}
+
+.scheme-franchise::before {
+  background-image: url('/images/scheme_franchise.png');
+}
+
+.scheme-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgba(14, 25, 45, 0.6) 0%, rgba(14, 25, 45, 0.95) 100%);
+}
+
+.scheme-icon-wrapper {
+  background: rgba(255, 255, 255, 0.1);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.scheme-card:hover .scheme-icon-wrapper {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.scheme-icon {
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.scheme-card:hover .scheme-icon {
+  color: #FFB547;
+}
+
+.scheme-title {
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+  font-family: var(--font-heading);
+  color: #ffffff;
+}
+
+.scheme-desc {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+  flex-grow: 1;
+}
+
+.scheme-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .schemes-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .scheme-card {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .scheme-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 1.5rem;
+  }
+
+  .scheme-title {
+    font-size: 1.5rem;
+  }
+
+  .scheme-desc {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .modal-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-title {
+    align-items: flex-start;
+    font-size: 1.05rem;
+  }
+
+  .detail-title svg {
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .detail-desc {
+    font-size: 0.9rem;
+    padding-left: 2rem;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 800px;
+  max-height: calc(100vh - 3rem);
+  position: relative;
+  padding: 1.75rem 2rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  margin: 0 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.modal-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+}
+
+.modal-colleges::before {
+  background-image: url('/images/scheme_colleges.png');
+}
+
+.modal-franchise::before {
+  background-image: url('/images/scheme_franchise.png');
+}
+
+.modal-content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgba(14, 25, 45, 0.85) 0%, rgba(14, 25, 45, 0.98) 100%);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: #ffffff;
+}
+
+.modal-title {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  color: #ffffff;
+  text-align: center;
+}
+
+.modal-details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.detail-card {
+  padding: 0.85rem 1.25rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.detail-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: #ffffff;
+}
+
+.detail-desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  padding-left: 1.8rem;
+}
+
+.text-go {
+  color: var(--logo-go);
+}
+
+.mobile-block {
+  display: inline;
+}
+
+.desktop-only-space {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .mobile-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .desktop-only-space {
+    display: none;
+  }
+}

@@ -1,0 +1,71 @@
+.categories-section {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 0;
+  width: 100%;
+  max-width: 100vw;
+  height: 140px;
+  /* Slightly tighter so it sits even lower */
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.marquee-container {
+  display: flex;
+  width: max-content;
+}
+
+/* Gradients removed */
+
+.wave-flex {
+  display: flex;
+  gap: 1.5rem;
+  /* Much closer spacing between items */
+  padding: 0 2rem;
+}
+
+.category-icon-circle {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--logo-grab);
+  box-shadow: 0 4px 15px rgba(91, 188, 255, 0.2);
+  cursor: pointer;
+  flex-shrink: 0;
+
+  /* The continuous bobbing animation that creates the travelling wave */
+  animation: bobY 5s ease-in-out infinite alternate;
+
+  /* Stagger delay based on index to form the wave shape */
+  animation-delay: calc(var(--index) * -0.7s);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-icon-circle:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 25px rgba(91, 188, 255, 0.4);
+}
+
+@keyframes bobY {
+  0% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(20px);
+  }
+}

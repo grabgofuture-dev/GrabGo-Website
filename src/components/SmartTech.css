@@ -1,0 +1,78 @@
+.smart-tech-section {
+  background: transparent;
+  position: relative;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(220px, auto); /* Consistent row height for bento layout */
+  gap: 1.5rem;
+}
+
+.col-span-2 { grid-column: span 2; }
+.row-span-2 { grid-row: span 2; }
+.col-span-1 { grid-column: span 1; }
+.row-span-1 { grid-row: span 1; }
+
+.tech-card {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 30, 80, 0.5); /* Strong dark blue overlay to make text pop */
+  z-index: -1;
+  transition: background 0.3s ease;
+}
+
+.tech-card:hover::before {
+  background: rgba(0, 30, 80, 0.3); /* Slightly lighter on hover */
+}
+
+.tech-icon {
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.tech-card:hover .tech-icon {
+  transform: scale(1.1);
+  color: #FFB547;
+}
+
+.tech-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 900px) {
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .col-span-2 { grid-column: span 2; }
+  .row-span-2 { grid-row: span 1; } /* On mobile, avoid overly tall cards */
+}
+
+@media (max-width: 600px) {
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+  .col-span-2 { grid-column: span 1; }
+}

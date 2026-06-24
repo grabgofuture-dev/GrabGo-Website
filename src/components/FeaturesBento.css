@@ -1,0 +1,122 @@
+.features-section {
+  background-image: url('/section_bg.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(220px, auto);
+  gap: 1.5rem;
+}
+
+.bento-item {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Center horizontally */
+  text-align: center;
+  /* Center text */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bento-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 30, 80, 0.5);
+  /* Stronger dark blue overlay to reduce image prominence */
+  z-index: -1;
+  transition: background 0.3s ease;
+}
+
+.bento-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.bento-item:hover::before {
+  background: rgba(0, 30, 80, 0.4);
+  /* slightly lighter on hover */
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.feature-icon {
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  /* No background or border to match HowItWorks precisely */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.bento-item:hover .feature-icon {
+  transform: scale(1.1);
+  color: #FFB547;
+  /* User requested color on hover */
+}
+
+.feature-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-heading);
+  color: #ffffff;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.feature-desc {
+  color: rgba(255, 255, 255, 0.9);
+  /* Almost pure white text */
+  line-height: 1.5;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .span-2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-item {
+    padding: 1.5rem 1rem;
+  }
+  .feature-icon {
+    margin-bottom: 1rem;
+  }
+  .feature-title {
+    font-size: 1.1rem;
+  }
+  .feature-desc {
+    font-size: 0.95rem;
+  }
+  .features-section .section-subtitle {
+    font-size: 0.85rem;
+  }
+}

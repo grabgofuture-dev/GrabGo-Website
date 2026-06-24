@@ -1,0 +1,143 @@
+.founders-section {
+  position: relative;
+  background-image: url('/section_bg.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  overflow: hidden;
+  color: #ffffff;
+  padding: 5rem 2rem;
+}
+
+
+
+/* ── Grid ── */
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+/* ── Card ── */
+.founder-card {
+  background: #ffffff;
+  color: #030303;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+  border: none;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease;
+}
+
+/* ── Image ── */
+.founder-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.founder-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.founder-card:hover .founder-image {
+  transform: scale(1.05);
+}
+
+/* ── Overlay ── */
+.founder-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
+
+.social-link {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: var(--accent-blue, #4090f7);
+  transform: translateY(-3px);
+}
+
+/* ── Info ── */
+.founder-info {
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.founder-role {
+  color: #FFA000;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  display: block;
+}
+
+.founder-name {
+  font-size: 1.75rem;
+  margin-bottom: 0;
+  color: #050505;
+  font-family: var(--font-heading);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .founders-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .founders-section .section-subtitle {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .founders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .founder-image-wrapper {
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  
+  .founder-overlay {
+    opacity: 1 !important;
+    padding-bottom: 1rem;
+  }
+
+  .founders-section .section-title {
+    font-size: 1.35rem;
+    white-space: nowrap;
+  }
+
+  .founders-section .section-subtitle {
+    font-size: 0.75rem;
+  }
+}

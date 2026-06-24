@@ -1,0 +1,320 @@
+.fssai-section {
+  padding: 6rem 0 8rem;
+  position: relative;
+  overflow: hidden;
+  background-image: url('/section_bg.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.fssai-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.fssai-title {
+  font-size: 3rem;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+}
+
+.fssai-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+}
+
+.fssai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.fssai-card {
+  padding: 2.5rem;
+  position: relative;
+  border-radius: 24px;
+}
+
+.fssai-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.card-badge {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--logo-grab), #1e6bc4);
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 50px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.eligibility-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.eligibility-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1rem;
+}
+
+.eligibility-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.icon-box {
+  background: rgba(255, 255, 255, 0.1);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.benefit-card {
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(14, 25, 45, 0.4) 100%);
+  border: 1px solid var(--logo-grab);
+  box-shadow: 0 0 20px rgba(91, 188, 255, 0.2);
+}
+
+.benefit-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.benefit-sub {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.benefit-amount {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin: 0.5rem 0;
+}
+
+.benefit-month {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.benefit-asterisk {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 1rem;
+}
+
+.fssai-right {
+  display: flex;
+  align-items: stretch;
+}
+
+.fssai-graphics-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  overflow: hidden;
+}
+
+.glow-circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: var(--logo-grab);
+  filter: blur(100px);
+  opacity: 0.2;
+  border-radius: 50%;
+}
+
+.compliance-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+  z-index: 2;
+}
+
+.compliance-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.expand-text {
+  position: relative;
+  z-index: 2;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.expand-text h3 {
+  font-size: 2rem;
+  line-height: 1.3;
+  letter-spacing: 2px;
+  font-weight: 900;
+}
+
+.zap-icon {
+  margin-top: 1rem;
+}
+
+.fssai-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+  border-radius: 24px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-left: 6px solid var(--logo-grab);
+}
+
+.footer-left h3 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.footer-left p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.contact-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.contact-number {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-family: var(--font-heading);
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.contact-number:hover {
+  transform: scale(1.05);
+  color: var(--logo-go);
+}
+
+@media (max-width: 968px) {
+  .fssai-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fssai-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .footer-right {
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .fssai-title {
+    font-size: 1.5rem;
+  }
+  .fssai-subtitle {
+    font-size: 0.95rem;
+  }
+  .benefit-amount {
+    font-size: 2.2rem;
+  }
+  .fssai-card {
+    padding: 1.5rem;
+  }
+  .eligibility-item {
+    font-size: 0.95rem;
+  }
+  .fssai-graphics-container {
+    padding: 1.5rem;
+    min-height: auto;
+  }
+  .compliance-badge {
+    font-size: 0.9rem;
+    padding: 1rem 1.25rem;
+  }
+  .expand-text h3 {
+    font-size: 1.5rem;
+  }
+  .footer-left h3 {
+    font-size: 1.35rem;
+  }
+  .footer-left p {
+    font-size: 0.9rem;
+  }
+  .contact-label {
+    font-size: 0.85rem;
+  }
+  .contact-number {
+    font-size: 1.5rem;
+  }
+  .fssai-footer {
+    padding: 1.5rem;
+  }
+  .fssai-header {
+    margin-bottom: 2.5rem;
+  }
+}

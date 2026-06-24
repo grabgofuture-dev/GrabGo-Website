@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg-color: #0A0A0F;
+  --bg-color-secondary: #12121A;
+  --bg-color-tertiary: #1A1A24;
+
+  /* Text — white primary, very light blue-white secondary */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.80);
+
+  --accent-cyan: #ffffff;
+  --accent-blue: #ffffff;
+  --accent-gold: #FFC107;
+
+  --logo-grab: #5BBCFF;   /* Sky blue — matches GRAB in logo */
+  --logo-go:   #FFB300;    /* Golden amber — matches GO in logo */
+
+  --accent-gradient: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+  --gold-gradient:   linear-gradient(135deg, #FFE066 0%, #FFC107 100%);
+
+  /* Glass cards — white frosted look on the blue background */
+  --border-color:  rgba(255, 255, 255, 0.25);
+  --glass-bg:      rgba(255, 255, 255, 0.15);
+  --glass-border:  1px solid rgba(255, 255, 255, 0.30);
+
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body:    'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.app-wrapper {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+}
+
+/* Every section is transparent — solid blue shows through */
+section,
+main > * {
+  background: transparent !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 800; /* Bolder blocky look */
+  text-transform: uppercase; /* For the energetic poster vibe */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Utilities */
+.gradient-text {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.gold-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* GRAB = sky blue, GO = golden amber — exact brand colours from the logo */
+.text-grab {
+  color: #5BBCFF;
+  font-weight: 900;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.text-go {
+  color: #FFB300;
+  font-weight: 900;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.continuous-gradient {
+  background: linear-gradient(135deg, var(--logo-grab) 0%, #ffffff 50%, var(--logo-go) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3)) drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+}
+
+.btn-gradient-text {
+  color: #ffffff;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover .btn-gradient-text {
+  color: #ffffff;
+}
+
+/* White frosted glass card on blue */
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Common Section Styles */
+section {
+  padding: 8rem 0;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.6rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-weight: 900;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  text-transform: none; /* Keep subtitles readable */
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--logo-grab);
+  color: var(--bg-color);
+  padding: 0.65rem 1.4rem;
+  border-radius: 50px; /* Pill-shaped buttons */
+  font-weight: 800;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 15px rgba(91, 188, 255, 0.4);
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(91, 188, 255, 0.6);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.65rem 1.4rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(91, 188, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  section { padding: 4rem 0; }
+  .section-title { font-size: 2rem; }
+  .section-subtitle { font-size: 1.05rem; }
+  .container { padding: 0 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  section { padding: 3.5rem 0; }
+  .section-title { font-size: 1.6rem; }
+  .section-subtitle { font-size: 0.9rem; }
+  .container { padding: 0 1.2rem; }
+}
