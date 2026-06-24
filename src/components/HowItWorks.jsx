@@ -51,7 +51,7 @@ export default function HowItWorks() {
             playsInline
             controls
           >
-            <source src="/videos/GrabGo-Working.mp4" type="video/mp4" />
+            <source src="/videos/new-video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </motion.div>
