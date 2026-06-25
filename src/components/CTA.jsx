@@ -19,6 +19,12 @@ export default function CTA() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Honeypot check for spam bots
+    if (e.target.honeypot.value) {
+      console.warn("Spam bot detected!");
+      return;
+    }
+    
     const formData = new FormData();
     formData.append("entry.1321316006", e.target.name.value);
     formData.append("entry.1109254305", e.target.phone.value);
@@ -67,7 +73,18 @@ export default function CTA() {
             </p>
             
             <form className="cta-form" onSubmit={handleSubmit}>
-              <input type="text" name="name" placeholder="Your Name" className="form-input" required />
+              {/* Hidden honeypot field to catch spam bots */}
+              <input type="text" name="honeypot" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
+
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Your Name" 
+                className="form-input" 
+                required 
+                pattern="^[a-zA-Z\s]{2,50}$" 
+                title="Please enter a valid name (letters and spaces only, 2-50 characters)."
+              />
               
               <div className="custom-select-container">
                 <div 
@@ -107,7 +124,15 @@ export default function CTA() {
                 <input type="hidden" required value={selectedInterest} />
               </div>
 
-              <input type="tel" name="phone" placeholder="Phone Number" className="form-input" required />
+              <input 
+                type="tel" 
+                name="phone" 
+                placeholder="Phone Number" 
+                className="form-input" 
+                required 
+                pattern="^\+?[0-9\s\-\(\)]{10,15}$" 
+                title="Please enter a valid phone number (10-15 digits)."
+              />
 
               <button type="submit" className="btn-primary form-submit">
                 Request Callback <ArrowRight size={20} />
