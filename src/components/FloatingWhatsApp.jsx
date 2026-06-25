@@ -2,8 +2,7 @@ import React from 'react';
 import './FloatingWhatsApp.css';
 
 const FloatingWhatsApp = () => {
-  // Replace this with your actual WhatsApp number
-  const phoneNumber = "1234567890"; 
+  const phoneNumber = "917736914849"; // WhatsApp API requires the country code (91 for India) without the +
   const message = "Hello! I would like to know more about GrabGo.";
   
   // Format the URL properly. Use wa.me for WhatsApp links
