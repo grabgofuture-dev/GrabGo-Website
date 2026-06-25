@@ -10,6 +10,7 @@ import ProductCategories from './components/ProductCategories';
 import Founders from './components/Founders';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 
 function App() {
   useEffect(() => {
@@ -47,6 +48,7 @@ function App() {
         <CTA />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 }
