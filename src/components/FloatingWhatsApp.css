@@ -12,14 +12,30 @@
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   z-index: 1000;
-  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   cursor: pointer;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 15px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .floating-whatsapp:hover {
   background-color: #1ebe57;
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  animation-play-state: paused;
+  transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
