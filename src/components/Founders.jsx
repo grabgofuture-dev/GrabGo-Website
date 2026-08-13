@@ -5,19 +5,19 @@ const founders = [
   {
     name: "Muhammed Sinan",
     role: "Founder & Creative Director",
-    image: "/images/founders info 1.jpeg",
+    image: "/images/founders info 1.webp",
     instagram: "https://www.instagram.com/s.inuu_?igsh=Mm94NXJwNWVxenRr"
   },
   {
     name: "Rifan Rafeeq",
     role: "Co-Founder & Business Director",
-    image: "/images/founders info 2.jpeg",
+    image: "/images/founders info 2.webp",
     instagram: "https://www.instagram.com/___rifan___k?igsh=MXBnYmw4MGU0ZTM2bg=="
   },
   {
     name: "Anu Sharwan",
     role: "Co-Founder & Operations Director",
-    image: "/images/founders info 3.jpeg",
+    image: "/images/founders info 3.webp",
     instagram: "https://www.instagram.com/sharvaann_?igsh=cHIxaWEycjg1dmQ0"
   }
 ];
