@@ -6,12 +6,12 @@ import {
 import './FeaturesBento.css';
 
 const features = [
-  { icon: <Clock size={32} />, title: "24/7 Availability", desc: "Access round the clock without any dependencies.", colSpan: 2, image: "/features/24_7_availability_v2.png", bgPos: "center top" },
-  { icon: <CreditCard size={32} />, title: "Cashless Payments", desc: "100% digital transactions via UPI & QR.", colSpan: 1, image: "/features/cashless_payments_v2.png" },
-  { icon: <Zap size={32} />, title: "No Queues", desc: "Instant grab and go.", colSpan: 1, image: "/features/no_queues_v3.png" },
-  { icon: <Box size={32} />, title: "Smart Inventory", desc: "Automated tracking ensures machines are never empty.", colSpan: 2, image: "/features/smart_inventory_v3.png" },
-  { icon: <ShieldCheck size={32} />, title: "Hygiene First", desc: "Contactless delivery and strict food safety.", colSpan: 1, image: "/features/hygiene_first_v3.png" },
-  { icon: <Wrench size={32} />, title: "Maintenance Included", desc: "Zero operational burden for the campus.", colSpan: 1, image: "/features/maintenance_included_v2.png" }
+  { icon: <Clock size={32} />, title: "24/7 Availability", desc: "Access round the clock without any dependencies.", colSpan: 2, image: "/features/24_7_availability_v2.webp", bgPos: "center top" },
+  { icon: <CreditCard size={32} />, title: "Cashless Payments", desc: "100% digital transactions via UPI & QR.", colSpan: 1, image: "/features/cashless_payments_v2.webp" },
+  { icon: <Zap size={32} />, title: "No Queues", desc: "Instant grab and go.", colSpan: 1, image: "/features/no_queues_v3.webp" },
+  { icon: <Box size={32} />, title: "Smart Inventory", desc: "Automated tracking ensures machines are never empty.", colSpan: 2, image: "/features/smart_inventory_v3.webp" },
+  { icon: <ShieldCheck size={32} />, title: "Hygiene First", desc: "Contactless delivery and strict food safety.", colSpan: 1, image: "/features/hygiene_first_v3.webp" },
+  { icon: <Wrench size={32} />, title: "Maintenance Included", desc: "Zero operational burden for the campus.", colSpan: 1, image: "/features/maintenance_included_v2.webp" }
 ];
 
 export default function FeaturesBento() {

@@ -3,12 +3,12 @@ import { Database, BrainCircuit, BarChart3, Wallet, RotateCcw, MonitorSmartphone
 import './SmartTech.css';
 
 const techCards = [
-  { icon: <Database size={40} />, title: "Real-Time Inventory", image: "/tech/tech_inventory.png", colSpan: 2, rowSpan: 2 },
-  { icon: <BrainCircuit size={40} />, title: "AI-Powered Monitoring", image: "/tech/tech_ai.png", colSpan: 1, rowSpan: 1 },
-  { icon: <BarChart3 size={40} />, title: "Smart Analytics", image: "/features/smart_inventory_v3.png", colSpan: 1, rowSpan: 1 },
-  { icon: <Wallet size={40} />, title: "Cashless Payments", image: "/features/cashless_payments_v2.png", colSpan: 1, rowSpan: 1 },
-  { icon: <RotateCcw size={40} />, title: "Instant Refund System", image: "/features/24_7_availability_v2.png", colSpan: 1, rowSpan: 1 },
-  { icon: <MonitorSmartphone size={40} />, title: "Remote Management", image: "/features/maintenance_included_v2.png", colSpan: 1, rowSpan: 1 }
+  { icon: <Database size={40} />, title: "Real-Time Inventory", image: "/tech/tech_inventory.webp", colSpan: 2, rowSpan: 2 },
+  { icon: <BrainCircuit size={40} />, title: "AI-Powered Monitoring", image: "/tech/tech_ai.webp", colSpan: 1, rowSpan: 1 },
+  { icon: <BarChart3 size={40} />, title: "Smart Analytics", image: "/features/smart_inventory_v3.webp", colSpan: 1, rowSpan: 1 },
+  { icon: <Wallet size={40} />, title: "Cashless Payments", image: "/features/cashless_payments_v2.webp", colSpan: 1, rowSpan: 1 },
+  { icon: <RotateCcw size={40} />, title: "Instant Refund System", image: "/features/24_7_availability_v2.webp", colSpan: 1, rowSpan: 1 },
+  { icon: <MonitorSmartphone size={40} />, title: "Remote Management", image: "/features/maintenance_included_v2.webp", colSpan: 1, rowSpan: 1 }
 ];
 
 export default function SmartTech() {
