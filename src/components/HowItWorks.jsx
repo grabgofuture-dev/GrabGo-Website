@@ -9,12 +9,17 @@ export default function HowItWorks() {
     const video = videoRef.current;
     if (!video) return;
 
-    video.muted = true; // Required by modern browsers to allow autoplay
+    video.muted = false; // Enable full audio playback
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => {});
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Browser autoplay policy fallback if unmuted play is deferred until user interaction
+            });
+          }
         } else {
           video.pause();
         }
@@ -50,7 +55,6 @@ export default function HowItWorks() {
           <video 
             ref={videoRef}
             className="hiw-working-video"
-            muted
             playsInline
             controls
           >
