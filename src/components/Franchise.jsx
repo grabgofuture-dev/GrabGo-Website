@@ -11,12 +11,26 @@ export default function Franchise() {
   useEffect(() => {
     if (activeScheme) {
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = 'hidden';
+
+      const preventBackgroundScroll = (e) => {
+        // Prevent wheel / touch events from scrolling the background page
+        const modalContent = document.querySelector('.modal-content');
+        if (!modalContent || !modalContent.contains(e.target)) {
+          e.preventDefault();
+        }
+      };
+
+      window.addEventListener('wheel', preventBackgroundScroll, { passive: false });
+      window.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
+
+      return () => {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        window.removeEventListener('wheel', preventBackgroundScroll);
+        window.removeEventListener('touchmove', preventBackgroundScroll);
+      };
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [activeScheme]);
 
   const collegeDetails = [
@@ -101,6 +115,7 @@ export default function Franchise() {
           <motion.div
             ref={overlayRef}
             className="modal-overlay"
+            data-lenis-prevent="true"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -108,6 +123,7 @@ export default function Franchise() {
           >
             <motion.div
               className={`modal-content modal-${activeScheme}`}
+              data-lenis-prevent="true"
               initial={{ scale: 0.9, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 50 }}
