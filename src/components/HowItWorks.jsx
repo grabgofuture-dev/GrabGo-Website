@@ -9,15 +9,17 @@ export default function HowItWorks() {
     const video = videoRef.current;
     if (!video) return;
 
+    video.muted = true; // Required by modern browsers to allow autoplay
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => {}); // play with audio when in view
+          video.play().catch(() => {});
         } else {
-          video.pause(); // pause when scrolled away
+          video.pause();
         }
       },
-      { threshold: 0.4 } // triggers when 40% of video is visible
+      { threshold: 0.3 }
     );
 
     observer.observe(video);
@@ -48,10 +50,13 @@ export default function HowItWorks() {
           <video 
             ref={videoRef}
             className="hiw-working-video glass-card"
+            muted
             playsInline
             controls
+            preload="metadata"
           >
             <source src="/videos/new-video.mp4" type="video/mp4" />
+            <source src="/videos/how-it-works.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </motion.div>
