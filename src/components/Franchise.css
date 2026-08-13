@@ -48,11 +48,11 @@
 }
 
 .scheme-colleges::before {
-  background-image: url('/images/scheme_colleges.png');
+  background-image: url('/images/scheme_colleges.webp');
 }
 
 .scheme-franchise::before {
-  background-image: url('/images/scheme_franchise.png');
+  background-image: url('/images/scheme_franchise.webp');
 }
 
 .scheme-card::after {
@@ -201,11 +201,11 @@
 }
 
 .modal-colleges::before {
-  background-image: url('/images/scheme_colleges.png');
+  background-image: url('/images/scheme_colleges.webp');
 }
 
 .modal-franchise::before {
-  background-image: url('/images/scheme_franchise.png');
+  background-image: url('/images/scheme_franchise.webp');
 }
 
 .modal-content::after {
