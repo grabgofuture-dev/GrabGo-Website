@@ -49,7 +49,7 @@ export default function HowItWorks() {
         >
           <video 
             ref={videoRef}
-            className="hiw-working-video glass-card"
+            className="hiw-working-video"
             muted
             playsInline
             controls
