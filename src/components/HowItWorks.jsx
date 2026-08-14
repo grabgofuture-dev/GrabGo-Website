@@ -9,12 +9,23 @@ export default function HowItWorks() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Backup: explicitly play if video is paused when it scrolls into view.
-    // The native autoPlay attribute handles the primary play, this is a safety net.
+    // Always start muted — required for autoplay on all browsers
+    video.muted = true;
+    video.playsInline = true;
+
+    // Play when video enters viewport, pause when it leaves
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && video.paused) {
-          video.play().catch(() => {});
+        if (entry.isIntersecting) {
+          const promise = video.play();
+          if (promise !== undefined) {
+            promise.catch(() => {
+              // Retry after short delay (helps some mobile browsers)
+              setTimeout(() => video.play().catch(() => {}), 300);
+            });
+          }
+        } else {
+          video.pause();
         }
       },
       { threshold: 0.1 }
@@ -22,17 +33,19 @@ export default function HowItWorks() {
 
     observer.observe(video);
 
-    // Unmute on first user interaction anywhere on the page
+    // Unlock audio automatically on first user gesture (scroll, tap, click)
     const unlockAudio = () => {
       video.muted = false;
       if (video.paused) video.play().catch(() => {});
     };
 
-    ['touchstart', 'click', 'scroll'].forEach((evt) =>
+    ['touchstart', 'touchend', 'click', 'scroll', 'pointerdown'].forEach((evt) =>
       window.addEventListener(evt, unlockAudio, { once: true, passive: true })
     );
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -57,11 +70,9 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
         >
           <div className="hiw-video-wrapper">
-            {/* autoPlay + muted + playsInline = browser-native guaranteed autoplay on all platforms */}
             <video
               ref={videoRef}
               className="hiw-working-video"
-              autoPlay
               loop
               muted
               playsInline
