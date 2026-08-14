@@ -9,49 +9,45 @@ export default function HowItWorks() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Start muted — required for reliable autoplay in all browsers
+    // Start muted — required for 100% reliable autoplay across all browsers
     video.muted = true;
 
     let audioUnlocked = false;
+    let hasPlayed = false;
 
-    // Unmute + ensure video plays with sound
+    // Unlock audio on any user gesture
+    const UNLOCK_EVENTS = [
+      'scroll', 'touchstart', 'touchmove', 'touchend',
+      'pointerdown', 'mousedown', 'click', 'keydown', 'wheel',
+    ];
+
     const unlockAudio = () => {
       if (audioUnlocked) return;
       audioUnlocked = true;
       video.muted = false;
-      // If video is already visible and playing, just unmute it live
-      if (!video.paused) {
-        // already playing, just unmuted now — audio kicks in immediately
-      } else {
-        video.play().catch(() => {});
-      }
-      // Clean up all listeners once audio is unlocked
       UNLOCK_EVENTS.forEach((evt) =>
         window.removeEventListener(evt, unlockAudio, { capture: true })
       );
     };
 
-    // Broad list of gestures — scroll, touch, pointer, key all count
-    const UNLOCK_EVENTS = [
-      'scroll', 'touchstart', 'touchmove', 'touchend',
-      'pointerdown', 'pointermove', 'mousedown', 'click',
-      'keydown', 'wheel',
-    ];
-
     UNLOCK_EVENTS.forEach((evt) =>
       window.addEventListener(evt, unlockAudio, { capture: true, passive: true })
     );
 
-    // Fire early — start playing 300px BEFORE the video reaches the viewport
+    // rootMargin: '0px 0px 300px 0px' extends ONLY the bottom of the viewport by 300px
+    // → triggers play when the video is 300px BELOW the visible area (before user reaches it)
+    // → does NOT affect the top, so no false pause() on initial page load
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           video.play().catch(() => {});
-        } else {
+          hasPlayed = true;
+        } else if (hasPlayed) {
+          // Only pause after video has played at least once (avoids killing autoPlay on mount)
           video.pause();
         }
       },
-      { threshold: 0, rootMargin: '300px 0px' }
+      { threshold: 0, rootMargin: '0px 0px 300px 0px' }
     );
 
     observer.observe(video);
