@@ -9,15 +9,30 @@ export default function HowItWorks() {
     const video = videoRef.current;
     if (!video) return;
 
-    video.muted = true; // Ensure muted for smooth auto-play
+    let isIntersecting = false;
+
+    const enableAudioOnInteraction = () => {
+      if (video && isIntersecting && video.muted) {
+        video.muted = false;
+        video.play().catch(() => {});
+      }
+    };
+
+    window.addEventListener('click', enableAudioOnInteraction);
+    window.addEventListener('touchstart', enableAudioOnInteraction);
+    window.addEventListener('keydown', enableAudioOnInteraction);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        isIntersecting = entry.isIntersecting;
         if (entry.isIntersecting) {
+          video.muted = false;
           const playPromise = video.play();
           if (playPromise !== undefined) {
             playPromise.catch(() => {
-              // Handle autoplay restrictions gracefully
+              // Fallback to muted if browser blocks unmuted autoplay until user interaction
+              video.muted = true;
+              video.play().catch(() => {});
             });
           }
         } else {
@@ -28,7 +43,13 @@ export default function HowItWorks() {
     );
 
     observer.observe(video);
-    return () => observer.disconnect();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('click', enableAudioOnInteraction);
+      window.removeEventListener('touchstart', enableAudioOnInteraction);
+      window.removeEventListener('keydown', enableAudioOnInteraction);
+    };
   }, []);
 
   return (
@@ -57,7 +78,6 @@ export default function HowItWorks() {
             className="hiw-working-video"
             autoPlay
             loop
-            muted
             playsInline
           >
             <source src="/videos/new-video.mp4" type="video/mp4" />
