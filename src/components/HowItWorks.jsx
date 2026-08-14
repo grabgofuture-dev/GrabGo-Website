@@ -9,31 +9,13 @@ export default function HowItWorks() {
     const video = videoRef.current;
     if (!video) return;
 
-    let isIntersecting = false;
-
-    // Force unmuted state
-    video.muted = false;
-
-    // Helper to trigger audio playback
-    const playWithAudio = async () => {
-      if (!video) return;
-      video.muted = false;
-      try {
-        await video.play();
-      } catch (err) {
-        // Fallback to muted temporarily if browser policy blocks unmuted play without gesture
-        video.muted = true;
-        try {
-          await video.play();
-        } catch (e) {}
-      }
-    };
+    // Ensure muted for 100% reliable instant autoplay across all browsers & mobile devices
+    video.muted = true;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        isIntersecting = entry.isIntersecting;
         if (entry.isIntersecting) {
-          playWithAudio();
+          video.play().catch(() => {});
         } else {
           video.pause();
         }
@@ -43,30 +25,20 @@ export default function HowItWorks() {
 
     observer.observe(video);
 
-    // Global listener on all gestures (scroll, touch, click, wheel) to unlock audio automatically
-    const unlockAudio = () => {
+    // Unmute audio smoothly upon the first user click or tap anywhere on the site
+    const enableAudio = () => {
       if (video) {
         video.muted = false;
-        if (isIntersecting) {
-          video.play().catch(() => {});
-        }
       }
     };
 
-    const options = { capture: true, passive: true };
-    const events = ['touchstart', 'touchend', 'pointerdown', 'pointermove', 'click', 'scroll', 'wheel'];
-
-    events.forEach((evt) => {
-      window.addEventListener(evt, unlockAudio, options);
-      document.addEventListener(evt, unlockAudio, options);
-    });
+    window.addEventListener('click', enableAudio, { once: true });
+    window.addEventListener('touchstart', enableAudio, { once: true });
 
     return () => {
       observer.disconnect();
-      events.forEach((evt) => {
-        window.removeEventListener(evt, unlockAudio, options);
-        document.removeEventListener(evt, unlockAudio, options);
-      });
+      window.removeEventListener('click', enableAudio);
+      window.removeEventListener('touchstart', enableAudio);
     };
   }, []);
 
@@ -97,6 +69,7 @@ export default function HowItWorks() {
               className="hiw-working-video"
               autoPlay
               loop
+              muted
               playsInline
               preload="auto"
             >
