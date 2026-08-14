@@ -1,56 +1,77 @@
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Volume2, VolumeX } from 'lucide-react';
 import './HowItWorks.css';
 
 export default function HowItWorks() {
   const videoRef = useRef(null);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    let isIntersecting = false;
-
-    const enableAudioOnInteraction = () => {
-      if (video && isIntersecting && video.muted) {
-        video.muted = false;
-        video.play().catch(() => {});
+    // Fast and reliable playback start
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch (err) {
+        // Fallback to muted if unmuted autoplay is blocked by browser policy
+        video.muted = true;
+        setIsMuted(true);
+        try {
+          await video.play();
+        } catch (e) {
+          // Playback deferred until user interaction
+        }
       }
     };
 
-    window.addEventListener('click', enableAudioOnInteraction);
-    window.addEventListener('touchstart', enableAudioOnInteraction);
-    window.addEventListener('keydown', enableAudioOnInteraction);
-
     const observer = new IntersectionObserver(
       ([entry]) => {
-        isIntersecting = entry.isIntersecting;
         if (entry.isIntersecting) {
-          video.muted = false;
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              // Fallback to muted if browser blocks unmuted autoplay until user interaction
-              video.muted = true;
-              video.play().catch(() => {});
-            });
-          }
+          playVideo();
         } else {
           video.pause();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
 
     observer.observe(video);
 
+    // Auto-unmute when the user taps/clicks anywhere on the site
+    const handleGesture = () => {
+      if (videoRef.current) {
+        videoRef.current.muted = false;
+        setIsMuted(false);
+      }
+    };
+
+    window.addEventListener('click', handleGesture, { once: true });
+    window.addEventListener('touchstart', handleGesture, { once: true });
+
     return () => {
       observer.disconnect();
-      window.removeEventListener('click', enableAudioOnInteraction);
-      window.removeEventListener('touchstart', enableAudioOnInteraction);
-      window.removeEventListener('keydown', enableAudioOnInteraction);
+      window.removeEventListener('click', handleGesture);
+      window.removeEventListener('touchstart', handleGesture);
     };
   }, []);
+
+  const toggleSound = (e) => {
+    e.stopPropagation();
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.muted) {
+      video.muted = false;
+      setIsMuted(false);
+      video.play().catch(() => {});
+    } else {
+      video.muted = true;
+      setIsMuted(true);
+    }
+  };
 
   return (
     <section id="how-it-works" className="hiw-section">
@@ -73,16 +94,39 @@ export default function HowItWorks() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
-          <video 
-            ref={videoRef}
-            className="hiw-working-video"
-            autoPlay
-            loop
-            playsInline
-          >
-            <source src="/videos/new-video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <div className="hiw-video-wrapper" onClick={toggleSound}>
+            <video 
+              ref={videoRef}
+              className="hiw-working-video"
+              autoPlay
+              loop
+              muted={isMuted}
+              playsInline
+              preload="auto"
+            >
+              <source src="/videos/new-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            <button 
+              className={`hiw-sound-badge ${isMuted ? 'muted' : 'unmuted'}`}
+              onClick={toggleSound}
+              aria-label={isMuted ? "Unmute video" : "Mute video"}
+              type="button"
+            >
+              {isMuted ? (
+                <>
+                  <VolumeX size={15} />
+                  <span>Tap for sound</span>
+                </>
+              ) : (
+                <>
+                  <Volume2 size={15} />
+                  <span>Sound On</span>
+                </>
+              )}
+            </button>
+          </div>
         </motion.div>
       </div>
     </section>
