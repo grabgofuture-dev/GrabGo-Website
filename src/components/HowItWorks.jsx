@@ -9,9 +9,40 @@ export default function HowItWorks() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Ensure muted for 100% reliable instant autoplay across all browsers & mobile devices
+    // Start muted — required for reliable autoplay in all browsers
     video.muted = true;
 
+    let audioUnlocked = false;
+
+    // Unmute + ensure video plays with sound
+    const unlockAudio = () => {
+      if (audioUnlocked) return;
+      audioUnlocked = true;
+      video.muted = false;
+      // If video is already visible and playing, just unmute it live
+      if (!video.paused) {
+        // already playing, just unmuted now — audio kicks in immediately
+      } else {
+        video.play().catch(() => {});
+      }
+      // Clean up all listeners once audio is unlocked
+      UNLOCK_EVENTS.forEach((evt) =>
+        window.removeEventListener(evt, unlockAudio, { capture: true })
+      );
+    };
+
+    // Broad list of gestures — scroll, touch, pointer, key all count
+    const UNLOCK_EVENTS = [
+      'scroll', 'touchstart', 'touchmove', 'touchend',
+      'pointerdown', 'pointermove', 'mousedown', 'click',
+      'keydown', 'wheel',
+    ];
+
+    UNLOCK_EVENTS.forEach((evt) =>
+      window.addEventListener(evt, unlockAudio, { capture: true, passive: true })
+    );
+
+    // Play/pause video as it enters/leaves viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -25,20 +56,11 @@ export default function HowItWorks() {
 
     observer.observe(video);
 
-    // Unmute audio smoothly upon the first user click or tap anywhere on the site
-    const enableAudio = () => {
-      if (video) {
-        video.muted = false;
-      }
-    };
-
-    window.addEventListener('click', enableAudio, { once: true });
-    window.addEventListener('touchstart', enableAudio, { once: true });
-
     return () => {
       observer.disconnect();
-      window.removeEventListener('click', enableAudio);
-      window.removeEventListener('touchstart', enableAudio);
+      UNLOCK_EVENTS.forEach((evt) =>
+        window.removeEventListener(evt, unlockAudio, { capture: true })
+      );
     };
   }, []);
 
