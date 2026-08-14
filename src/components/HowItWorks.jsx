@@ -1,36 +1,40 @@
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import './HowItWorks.css';
 
 export default function HowItWorks() {
   const videoRef = useRef(null);
-  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Fast and reliable playback start
-    const playVideo = async () => {
+    video.muted = false;
+    let isIntersecting = false;
+
+    // Helper to attempt unmuted playback by default
+    const attemptUnmutedPlay = async () => {
+      if (!video) return;
+      video.muted = false;
       try {
         await video.play();
       } catch (err) {
-        // Fallback to muted if unmuted autoplay is blocked by browser policy
+        // If unmuted playback is temporarily blocked by browser autoplay policy,
+        // fallback to muted play until the user touches/clicks anywhere
         video.muted = true;
-        setIsMuted(true);
         try {
           await video.play();
         } catch (e) {
-          // Playback deferred until user interaction
+          // Playback deferred
         }
       }
     };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        isIntersecting = entry.isIntersecting;
         if (entry.isIntersecting) {
-          playVideo();
+          attemptUnmutedPlay();
         } else {
           video.pause();
         }
@@ -40,38 +44,27 @@ export default function HowItWorks() {
 
     observer.observe(video);
 
-    // Auto-unmute when the user taps/clicks anywhere on the site
-    const handleGesture = () => {
-      if (videoRef.current) {
-        videoRef.current.muted = false;
-        setIsMuted(false);
+    // Unmute sound automatically on any user interaction with the page
+    const enableAudio = () => {
+      if (video) {
+        video.muted = false;
+        if (isIntersecting && video.paused) {
+          video.play().catch(() => {});
+        }
       }
     };
 
-    window.addEventListener('click', handleGesture, { once: true });
-    window.addEventListener('touchstart', handleGesture, { once: true });
+    window.addEventListener('click', enableAudio);
+    window.addEventListener('touchstart', enableAudio);
+    window.addEventListener('pointerdown', enableAudio);
 
     return () => {
       observer.disconnect();
-      window.removeEventListener('click', handleGesture);
-      window.removeEventListener('touchstart', handleGesture);
+      window.removeEventListener('click', enableAudio);
+      window.removeEventListener('touchstart', enableAudio);
+      window.removeEventListener('pointerdown', enableAudio);
     };
   }, []);
-
-  const toggleSound = (e) => {
-    e.stopPropagation();
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (video.muted) {
-      video.muted = false;
-      setIsMuted(false);
-      video.play().catch(() => {});
-    } else {
-      video.muted = true;
-      setIsMuted(true);
-    }
-  };
 
   return (
     <section id="how-it-works" className="hiw-section">
@@ -94,38 +87,18 @@ export default function HowItWorks() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
-          <div className="hiw-video-wrapper" onClick={toggleSound}>
+          <div className="hiw-video-wrapper">
             <video 
               ref={videoRef}
               className="hiw-working-video"
               autoPlay
               loop
-              muted={isMuted}
               playsInline
               preload="auto"
             >
               <source src="/videos/new-video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-
-            <button 
-              className={`hiw-sound-badge ${isMuted ? 'muted' : 'unmuted'}`}
-              onClick={toggleSound}
-              aria-label={isMuted ? "Unmute video" : "Mute video"}
-              type="button"
-            >
-              {isMuted ? (
-                <>
-                  <VolumeX size={15} />
-                  <span>Tap for sound</span>
-                </>
-              ) : (
-                <>
-                  <Volume2 size={15} />
-                  <span>Sound On</span>
-                </>
-              )}
-            </button>
           </div>
         </motion.div>
       </div>
