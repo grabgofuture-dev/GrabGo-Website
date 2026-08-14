@@ -9,7 +9,7 @@ export default function HowItWorks() {
     const video = videoRef.current;
     if (!video) return;
 
-    video.muted = false; // Enable full audio playback
+    video.muted = true; // Ensure muted for smooth auto-play
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -17,7 +17,7 @@ export default function HowItWorks() {
           const playPromise = video.play();
           if (playPromise !== undefined) {
             playPromise.catch(() => {
-              // Browser autoplay policy fallback if unmuted play is deferred until user interaction
+              // Handle autoplay restrictions gracefully
             });
           }
         } else {
@@ -55,8 +55,10 @@ export default function HowItWorks() {
           <video 
             ref={videoRef}
             className="hiw-working-video"
+            autoPlay
+            loop
+            muted
             playsInline
-            controls
           >
             <source src="/videos/new-video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
