@@ -42,7 +42,7 @@ export default function HowItWorks() {
       window.addEventListener(evt, unlockAudio, { capture: true, passive: true })
     );
 
-    // Play/pause video as it enters/leaves viewport
+    // Fire early — start playing 300px BEFORE the video reaches the viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -51,7 +51,7 @@ export default function HowItWorks() {
           video.pause();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0, rootMargin: '300px 0px' }
     );
 
     observer.observe(video);
